@@ -67,6 +67,7 @@ public class TestMybatis {
     }
     private static void test_git() {
         //update git
+        //fixed some error about git's username and password
     }
 
     public static void main(String[] args) {
