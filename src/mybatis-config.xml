@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<typeAliases>
+  <package name="com.lizhao.pojo"/>
+</typeAliases>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/how2j?characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="admin"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <!-- mappers中包含一组映射器mapper，这些映射器的xml文件包含了SQL代码和映射定义信息-->
+  <mappers>
+    <mapper resource="com/lizhao/pojo/Category.xml"/>
+  </mappers>
+</configuration>
