@@ -65,6 +65,9 @@ public class TestMybatis {
             }
         }
     }
+    private static void test_git() {
+        //update git
+    }
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
