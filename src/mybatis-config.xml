@@ -20,5 +20,7 @@
   <!-- mappers中包含一组映射器mapper，这些映射器的xml文件包含了SQL代码和映射定义信息-->
   <mappers>
     <mapper resource="com/lizhao/pojo/Category.xml"/>
-  </mappers>
+    <mapper resource="com/lizhao/pojo/Product.xml" />
+      </mappers>
+   
 </configuration>

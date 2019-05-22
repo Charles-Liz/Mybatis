@@ -14,15 +14,10 @@
             <result column="price"  property="price" />
           </collection>
        </resultMap>
-       
-       <select id="listCategory"  resultMap="categoryMap">
-           select c.*,p.*,
-           c.id as "cid",
-           p.id as "pid",
-           c.name as "cname",
-           p.name as "pname" 
-           from category_ c left join product_ p on c.id = pid
-       </select>
+       <!-- 关联查询分类和产品表 -->
+        <select id="listCategory" resultMap="categoryMap">
+            select c.*, p.*, c.id 'cid', p.id 'pid', c.name 'cname', p.name 'pname' from category_ c left join product_ p on c.id = p.cid
+        </select>   
 
 			  <select id="selectAll" resultType="Category">
 			    select * from category_

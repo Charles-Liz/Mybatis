@@ -65,6 +65,15 @@ public class TestMybatis {
             }
         }
     }
+    
+    private static void many2one() {
+        session=getSqlSession();
+        List<Product> p = session.selectList("listProduct");
+        System.out.println(p.size());
+        for(Product c :p) {
+            System.out.println(c+"属于"+c.getCategory().getName());
+        }
+    }
     private static void test_git() {
         //update git
         //fixed some error about git's username and password
