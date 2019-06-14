@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.lizhao.mapper.ProductMapper;
 import com.lizhao.pojo.Category;
 import com.lizhao.pojo.Product;
 
@@ -18,21 +19,22 @@ public class TestMybatis {
     static String resource = "mybatis-config.xml";
     static InputStream inputStream = null;
     static SqlSessionFactory sqlSessionFactory = null;
-    private static  SqlSession getSqlSession() {
-        try {
-            inputStream = Resources.getResourceAsStream(resource);
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-            session = sqlSessionFactory.openSession();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
+    public static  SqlSession getSqlSession() throws IOException {
+            inputStream = Resources.getResourceAsStream(resource);//从src开始找
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);//构建者设计模式
+            session = sqlSessionFactory.openSession();      
         return session;
         
     }
     
-    private static void listAll() {
+    
+    public TestMybatis() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+
+    private static void listAll() throws IOException {
         session = TestMybatis.getSqlSession();
         List<Category> cg = session.selectList("selectAll");
         for(Category c:cg) {
@@ -40,20 +42,20 @@ public class TestMybatis {
         }
     }
     
-    private static void insert(String name) {
+    private static void insert(String name) throws IOException {
         session = getSqlSession();
         Category c = new Category();
         c.setName(name);
         session.insert("addCategory", c);
     }
     
-    private static void update() {
+    private static void update() throws IOException {
         session = getSqlSession();
         Category c = session.selectOne("getCategory", 15);
         c.setName("修改了15的名字");
         session.update("updateCategory", c);
     }
-    private static void one2many() {
+    private static void one2many() throws IOException {
         session=getSqlSession();
         List<Category> cg = session.selectList("listCategory");
         System.out.println(cg.size());
@@ -65,31 +67,12 @@ public class TestMybatis {
             }
         }
     }
-    
-    private static void many2one() {
-        session=getSqlSession();
-        List<Product> p = session.selectList("listProduct");
-        System.out.println(p.size());
-        for(Product c :p) {
-            System.out.println(c+"属于"+c.getCategory().getName());
-        }
-    }
-    private static void test_git() {
-        //update git
-        //fixed some error about git's username and password
-    }
 
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-       //insert("新的Category4");
-        try {
-            one2many();
-        }finally {
-            session.commit();
-            session.close();
-        }
-      // listAll();
-       
+    public static void main(String[] args) throws IOException {
+      session = getSqlSession();
+      ProductMapper product = session.getMapper(ProductMapper.class);//反射
+      Product byId = product.getById(1);
+      System.out.println(byId);
     }
 
 }

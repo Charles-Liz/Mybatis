@@ -5,13 +5,6 @@ public class Product {
     private int id;
     private String name;
     private float price;
-    private Category category;
-    public Category getCategory() {
-        return category;
-    }
-    public void setCategory(Category category) {
-        this.category = category;
-    }
     public int getId() {
         return id;
     }
