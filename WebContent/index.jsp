@@ -9,21 +9,22 @@
 <body>
  <table border="1">
       <tr>
-         <th>编号</th>
-         <th>姓名</th>
-         <th>年龄</th>
+         <th>id</th>
+         <th>name</th>
+         <th>age</th>
+         <th>teacher</th>
       </tr>
       <c:forEach items="${PageInfo.list }" var="pi" >
        <tr>
           <td>${pi.id }</td>
           <td>${pi.name }</td>
           <td>${pi.age }</td>
+          <td>${pi.teacher }</td>
       </tr>
       </c:forEach>
   </table>
-  <a href="page?pageSize=${PageInfo.pageSize}&&pageNumber=${PageInfo.pageNumber-1}" <c:if test="${PageInfo.pageNumber<=1 }"> onclick="javascript:return false;" </c:if> >上一页</a>&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-当前${PageInfo.pageNumber}页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+  <a href="page?pageSize=${PageInfo.pageSize}&&pageNumber=${PageInfo.pageNumber-1}" <c:if test="${PageInfo.pageNumber<=1 }"> onclick="javascript:return false;" </c:if> >上一页</a>
+当前${PageInfo.pageNumber}页
   <a href="page?pageSize=${PageInfo.pageSize}&&pageNumber=${PageInfo.pageNumber+1}" <c:if test="${PageInfo.pageNumber>=${PageInfo.total }"> onclick="javascript:return false;" </c:if> >下一页</a>
 </body>
 </html>

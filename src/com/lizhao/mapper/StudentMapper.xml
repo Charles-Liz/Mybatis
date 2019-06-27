@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lizhao.mapper.StudentMapper">
+   <resultMap type="student" id="selAllMap">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="age" property="age"/>
+    <result column="tid" property="tid"/>
+    <!-- N+1方式查询 -->
+    <association property="teacher" column="tid" select="com.lizhao.mapper.TeacherMapper.selById" ></association>
+   </resultMap>
+   <select id="selAll" resultMap="selAllMap">
+   select *from student
+   </select>
+   
+   <!-- selectById2 -->
+   <select id="selectByTid" resultType="student">
+      select *from student where tid=#{0}
+   </select>
+</mapper> 

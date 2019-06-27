@@ -9,9 +9,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.lizhao.mapper.ProductMapper;
-import com.lizhao.pojo.Category;
-import com.lizhao.pojo.Product;
+import com.lizhao.mapper.StudentMapper;
+import com.lizhao.mapper.TeacherMapper;
+import com.lizhao.pojo.Student;
+import com.lizhao.pojo.Teacher;
+
 
 
 public class TestMybatis {
@@ -26,6 +28,7 @@ public class TestMybatis {
         return session;
         
     }
+   
     
     
     public TestMybatis() {
@@ -34,45 +37,20 @@ public class TestMybatis {
     }
 
 
-    private static void listAll() throws IOException {
-        session = TestMybatis.getSqlSession();
-        List<Category> cg = session.selectList("selectAll");
-        for(Category c:cg) {
-            System.out.println(c);
-        }
-    }
-    
-    private static void insert(String name) throws IOException {
-        session = getSqlSession();
-        Category c = new Category();
-        c.setName(name);
-        session.insert("addCategory", c);
-    }
-    
-    private static void update() throws IOException {
-        session = getSqlSession();
-        Category c = session.selectOne("getCategory", 15);
-        c.setName("修改了15的名字");
-        session.update("updateCategory", c);
-    }
-    private static void one2many() throws IOException {
-        session=getSqlSession();
-        List<Category> cg = session.selectList("listCategory");
-        System.out.println(cg.size());
-        for(Category c :cg) {
-            System.out.println(c);
-            List<Product> ps = c.getProducts();
-            for(Product p:ps) {
-                System.out.println("\t"+p);
-            }
-        }
-    }
-
     public static void main(String[] args) throws IOException {
       session = getSqlSession();
-      ProductMapper product = session.getMapper(ProductMapper.class);//反射
-      Product byId = product.getById(1);
-      System.out.println(byId);
+      StudentMapper stuMapper = session.getMapper(StudentMapper.class);
+      TeacherMapper teaMapper = session.getMapper(TeacherMapper.class);
+      //根据老师ID查询，且返回旗下的所有学生
+//      List<Teacher> teacher = teaMapper.selectById(1);
+//      System.out.println(teacher);
+      //根据老师ID查询，且返回旗下的所有学生[多表单独查询]
+        List<Teacher> selectById2 = teaMapper.selectById2(2);
+        System.out.println(selectById2);
+//      List<Student> list = stuMapper.selAll();
+//      for(Student stu:list) {
+//          System.out.println(stu);
+//      }
     }
 
 }
